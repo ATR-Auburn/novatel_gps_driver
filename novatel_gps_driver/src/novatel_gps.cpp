@@ -1,6 +1,6 @@
 // *****************************************************************************
 //
-// Copyright (c) 2019, Southwest Research Institute® (SwRI®)
+// Copyright (c) 2019, Will Bryan and Southwest Research Institute® (SwRI®)
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -78,6 +78,7 @@ namespace novatel_gps_driver
       dual_antenna_heading_msgs_(MAX_BUFFER_SIZE),
       psrdop2_msgs_(MAX_BUFFER_SIZE),
       range_msgs_(MAX_BUFFER_SIZE),
+      rawimu_msgs_(MAX_BUFFER_SIZE),
       time_msgs_(MAX_BUFFER_SIZE),
       trackstat_msgs_(MAX_BUFFER_SIZE),
       imu_rate_(-1.0),
@@ -509,6 +510,11 @@ namespace novatel_gps_driver
   void NovatelGps::GetRangeMessages(std::vector<novatel_gps_driver::RangeParser::MessageType>& range_messages)
   {
     DrainQueue(range_msgs_, range_messages);
+  }
+
+  void NovatelGps::GetRawImuMessages(std::vector<novatel_gps_driver::RawImuParser::MessageType>& rawimu_messages)
+  {
+    DrainQueue(rawimu_msgs_, rawimu_messages);
   }
 
   void NovatelGps::GetTimeMessages(std::vector<novatel_gps_driver::TimeParser::MessageType>& time_messages)
@@ -1115,6 +1121,13 @@ namespace novatel_gps_driver
         auto range = range_parser_.ParseBinary(msg);
         range->header.stamp = stamp;
         range_msgs_.push_back(std::move(range));
+        break;
+      }
+      case RawImuParser::MESSAGE_ID:
+      {
+        auto imu = rawimu_parser_.ParseBinary(msg);
+        imu->header.stamp = stamp;
+        rawimu_msgs_.push_back(std::move(imu));
         break;
       }
       case TimeParser::MESSAGE_ID:

@@ -1,6 +1,6 @@
 // *****************************************************************************
 //
-// Copyright (c) 2019, Southwest Research Institute® (SwRI®)
+// Copyright (c) 2019, Will Bryan and Southwest Research Institute® (SwRI®)
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -62,6 +62,7 @@ namespace novatel_gps_driver
       publish_novatel_psrdop2_(false),
       publish_nmea_messages_(false),
       publish_range_messages_(false),
+      publish_rawimu_messages_(false),
       publish_time_messages_(false),
       publish_trackstat_(false),
       publish_diagnostics_(true),
@@ -109,6 +110,7 @@ namespace novatel_gps_driver
     publish_novatel_psrdop2_ = this->declare_parameter("publish_novatel_psrdop2", publish_novatel_psrdop2_);
     publish_nmea_messages_ = this->declare_parameter("publish_nmea_messages", publish_nmea_messages_);
     publish_range_messages_ = this->declare_parameter("publish_range_messages", publish_range_messages_);
+    publish_rawimu_messages_ = this->declare_parameter("publish_rawimu_messages", publish_rawimu_messages_);
     publish_time_messages_ = this->declare_parameter("publish_time_messages", publish_time_messages_);
     publish_trackstat_ = this->declare_parameter("publish_trackstat", publish_trackstat_);
     publish_diagnostics_ = this->declare_parameter("publish_diagnostics", publish_diagnostics_);
@@ -227,6 +229,11 @@ namespace novatel_gps_driver
     if (publish_range_messages_)
     {
       range_pub_ = swri::advertise<novatel_gps_msgs::msg::Range>(*this, "range", 100);
+    }
+
+    if (publish_rawimu_messages_)
+    {
+      rawimu_pub_ = swri::advertise<novatel_gps_msgs::msg::RawImu>(*this, "raw_imu", 100);
     }
 
     if (publish_time_messages_)
@@ -737,6 +744,17 @@ namespace novatel_gps_driver
         msg->header.stamp = rclcpp::Time(msg->header.stamp, this->get_clock()->get_clock_type()) + sync_offset;
         msg->header.frame_id = frame_id_;
         range_pub_->publish(std::move(msg));
+      }
+    }
+    if (publish_rawimu_messages_)
+    {
+      std::vector<novatel_gps_driver::RawImuParser::MessageType> rawimu_msgs;
+      gps_.GetRawImuMessages(rawimu_msgs);
+      for (auto& msg : rawimu_msgs)
+      {
+        msg->header.stamp = rclcpp::Time(msg->header.stamp, this->get_clock()->get_clock_type()) + sync_offset;
+        msg->header.frame_id = frame_id_;
+        rawimu_pub_->publish(std::move(msg));
       }
     }
     if (publish_trackstat_)

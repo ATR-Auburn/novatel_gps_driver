@@ -64,6 +64,8 @@
  *    measurements. (only published if `publish_novatel_psrdop2` is set `true`)
  * \e range <tt>novatel_gps_msgs/Range</tt> - Satellite ranging information
  *    (only published if `publish_range_messages` is set `true`)
+ * \e rawimu <tt>novatel_gps_msgs/NovatelRawImu</tt> - Raw IMU data
+ *    (only published if `publish_rawimu_messages` is set `true`)
  * \e time <tt>novatel_gps_msgs/Time</tt> - Novatel-specific time data. (Only
  *    published if `publish_time` is set `true`.)
  * \e trackstat <tt>novatel_gps_msgs/Trackstat</tt> - Novatel-specific trackstat
@@ -113,6 +115,8 @@
  *    gps_msgs/GPSFix messages [true]
  * \e publish_range_messages <tt>bool</tt> - If set true, the driver
  *    publishes Novatel RANGE messages [false]
+ * \e publish_rawimu_messages <tt>bool</tt> - If set true, the driver
+ *    publishes Novatel RAWIMUS messages [false] 
  * \e publish_sync_diagnostic <tt>bool</tt> - If true, publish a Sync diagnostic.
  *    This is ignored if publish_diagnostics is false. [true]
  * \e publish_time_messages <tt>bool</tt> - If set true, the driver publishes Novatel
@@ -204,6 +208,7 @@ namespace novatel_gps_driver
     bool publish_novatel_psrdop2_;
     bool publish_nmea_messages_;
     bool publish_range_messages_;
+    bool publish_rawimu_messages_;
     bool publish_time_messages_;
     bool publish_trackstat_;
     bool publish_diagnostics_;
@@ -234,6 +239,7 @@ namespace novatel_gps_driver
     rclcpp::Publisher<novatel_gps_msgs::msg::Gphdt>::SharedPtr gphdt_pub_;
     rclcpp::Publisher<novatel_gps_msgs::msg::Gprmc>::SharedPtr gprmc_pub_;
     rclcpp::Publisher<novatel_gps_msgs::msg::Range>::SharedPtr range_pub_;
+    rclcpp::Publisher<novatel_gps_msgs::msg::RawImu>::SharedPtr rawimu_pub_;
     rclcpp::Publisher<novatel_gps_msgs::msg::Time>::SharedPtr time_pub_;
     rclcpp::Publisher<novatel_gps_msgs::msg::Trackstat>::SharedPtr trackstat_pub_;
 
