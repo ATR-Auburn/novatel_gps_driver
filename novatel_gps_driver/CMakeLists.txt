@@ -19,6 +19,7 @@ find_package(swri_roscpp REQUIRED)
 find_package(swri_serial_util REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 # Boost
 find_package(Boost REQUIRED COMPONENTS system thread)
@@ -82,6 +83,7 @@ ament_target_dependencies(${PROJECT_NAME}
   swri_serial_util
   tf2
   tf2_geometry_msgs
+  geometry_msgs
 )
 
 ### ROS Node ###

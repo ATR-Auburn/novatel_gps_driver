@@ -753,7 +753,7 @@ namespace novatel_gps_driver
       for (auto& msg : rawimu_msgs)
       {
         msg->header.stamp = rclcpp::Time(msg->header.stamp, this->get_clock()->get_clock_type()) + sync_offset;
-        msg->header.frame_id = frame_id_;
+        msg->header.frame_id = imu_frame_id_;
         rawimu_pub_->publish(std::move(msg));
       }
     }
