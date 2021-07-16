@@ -27,19 +27,12 @@ or failure in using this with other devices so we can update this page appropria
 Usage
 -----
 
-The driver should function on ROS 2 Dashing, and binary packages are available
-for both of them.  To install them, first install ROS, then just run:
-
-```bash
-sudo apt-get install ros-dashing-novatel-gps-driver
-```
-
-If you'd like to build it from source:
+The driver should function on ROS 2 Dashing and has also been used on ROS 2 Foxy. To build it from source:
 
 ```bash
 mkdir -p novatel/src
 cd novatel/src
-git clone https://github.com/swri-robotics/novatel_gps_driver
+git clone https://github.com/ATR-Auburn/novatel_gps_driver
 rosdep install . --from-paths -i
 cd ../..
 colcon build
@@ -99,10 +92,10 @@ Packages
     a NovAtel device over a serial, TCP, or UDP connection and translate NovAtel
     logs into ROS messages.
 
-Nodelets
+Nodes
 --------
 
-1. ### `novatel_gps_driver/novatel_gps_nodelet`
+1. ### `novatel_gps_driver/src/nodes/novatel_gps_node.cpp`
     1. **ROS Parameters**
         - `connection_type`: Type of physical connection to the device
             - One of `serial`, `tcp`, `udp`, or `pcap`
@@ -164,6 +157,8 @@ Nodelets
             - Default: `false`
         - `publish_range_messages`: `true` to publish novatel_gps_msgs/Range messages.
             - Default: `false`
+        - `publish_rawimu_messages`: `true` to publish novatel_gps_msgs/RawImu messages.
+            - Default: `false`
         - `publish_sync_diagnostic`: If true, publish a time Sync diagnostic.
             - Ignored if `publish_diagnostics` is false.
             - Default: `true`
@@ -212,6 +207,7 @@ Nodelets
         - `/insstdev` *(novatel_gps_msgs/Insstdev)*: [INSSTDEV](http://docs.novatel.com/OEM7/Content/SPAN_Logs/INSSTDEV.htm) logs
         - `/psrdop2` *(novatel_gps_msgs/Psrdop2)*: [PSRDOP2](https://docs.novatel.com/OEM7/Content/Logs/PSRDOP2.htm) logs
         - `/range` *(novatel_gps_msgs/Range)*: [RANGE](http://docs.novatel.com/OEM7/Content/Logs/RANGE.htm) logs
+        - `/raw_imu` *(novatel_gps_msgs/RawImu)*: [RAWIMUS](http://docs.novatel.com/OEM7/Content/Logs/RAWIMUS.htm) logs
         - `/rosout` *(rosgraph_msgs/Log)*: Console output
         - `/time` *(novatel_gps_msgs/Time)*: [TIME](http://docs.novatel.com/OEM7/Content/Logs/TIME.htm) logs
         - `/trackstat` *(novatel_gps_msgs/Trackstat)*: [TRACKSTAT](http://docs.novatel.com/OEM7/Content/Logs/TRACKSTAT.htm) logs
@@ -234,9 +230,9 @@ can parse the log and return the appropriate ROS message.
     2. Modify the `NovatelGps::ParseBinaryMessage`, `NovatelGps::ParseNovatelSentence`, 
     or `NovatelGps::ParseNmeaSentence` methods to use your parser to parse the new message type
     and store it in the appropriate buffer.
-5. Modify the `novatel_gps_driver::NovatelGpsNodelet` class:
+5. Modify the `novatel_gps_driver::NovatelGpsNode` class:
     1. Add a configuration parameter to enable the new message type.
     2. Add a publisher for publishing it.
-    3. Modify `NovatelGpsNodelet::CheckDeviceForData` to retrieve messages from
+    3. Modify `NovatelGpsNode::CheckDeviceForData` to retrieve messages from
     the appropriate buffer and publish them.
 6. Add a new unit test to `novatel_gps_driver/tests/parser_tests.cpp` to test your parser.
