@@ -53,7 +53,7 @@ novatel_gps_driver::RawImuParser::ParseBinary(const novatel_gps_driver::BinaryMe
     error << "Unexpected rawimu message size: " << bin_msg.data_.size();
     throw ParseException(error.str());
   }
-  auto ros_msg = std::make_shared<novatel_gps_msgs::msg::NovatelRawImu>();
+  auto ros_msg = std::make_unique<novatel_gps_msgs::msg::NovatelRawImu>();
   HeaderParser h_parser;
   ros_msg->novatel_msg_header = h_parser.ParseBinary(bin_msg);
   ros_msg->novatel_msg_header.message_name = "RAWIMUS";
@@ -93,7 +93,7 @@ novatel_gps_driver::RawImuParser::ParseAscii(const novatel_gps_driver::NovatelSe
     error << "Unexpected number of fields in RAWIMUS log: " << sentence.body.size();
     throw ParseException(error.str());
   }
-  auto msg = std::make_shared<novatel_gps_msgs::msg::NovatelRawImu>();
+  auto msg = std::make_unique<novatel_gps_msgs::msg::NovatelRawImu>();
   HeaderParser h_parser;
   msg->novatel_msg_header = h_parser.ParseAscii(sentence);
 

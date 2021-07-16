@@ -3,14 +3,14 @@
   <name>novatel_gps_driver</name>
   <version>4.1.0</version>
   <description>
-  Driver for NovAtel receivers
+  Modified Driver for NovAtel receivers
   </description>
 
-  <maintainer email="preed@swri.org">P. J. Reed</maintainer>
+  <maintainer email="wtb0012@auburn.edu">Will Bryan</maintainer>
 
   <license>BSD</license>
 
-  <url type="repository">https://github.com/swri-robotics/novatel_gps_driver</url>
+  <url type="repository">https://github.com/ATR-Auburn/novatel_gps_driver</url>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <depend>boost</depend>

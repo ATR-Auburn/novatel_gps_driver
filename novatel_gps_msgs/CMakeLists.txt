@@ -4,11 +4,13 @@ project(novatel_gps_msgs)
 set(CMAKE_CXX_STANDARD 14)
 
 set(MSG_DEPS 
-  std_msgs)
+  std_msgs
+  geometry_msgs)
 
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 set(MSG_FILES
   msg/ClockSteering.msg
@@ -29,6 +31,7 @@ set(MSG_FILES
   msg/NovatelPosition.msg
   msg/NovatelPsrdop2.msg
   msg/NovatelPsrdop2System.msg
+  msg/NovatelRawImu.msg
   msg/NovatelReceiverStatus.msg
   msg/NovatelSignalMask.msg
   msg/NovatelUtmPosition.msg

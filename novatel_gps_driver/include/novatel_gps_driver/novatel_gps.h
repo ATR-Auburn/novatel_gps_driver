@@ -78,6 +78,7 @@
 #include <novatel_gps_driver/parsers/inspvax.h>
 #include <novatel_gps_driver/parsers/insstdev.h>
 #include <novatel_gps_driver/parsers/range.h>
+#include <novatel_gps_driver/parsers/rawimu.h>
 #include <novatel_gps_driver/parsers/psrdop2.h>
 #include <novatel_gps_driver/parsers/time.h>
 #include <novatel_gps_driver/parsers/trackstat.h>
@@ -257,6 +258,12 @@ namespace novatel_gps_driver
        * @param[out] range_messages New RANGE messages.
        */
       void GetRangeMessages(std::vector<novatel_gps_driver::RangeParser::MessageType>& range_messages);
+      /**
+       * @brief Provides any RAWIMUS messages that have been received since the
+       * last time this was called.
+       * @param[out] rawimu_messages New RAWIMUS messages.
+       */
+      void GetRawImuMessages(std::vector<novatel_gps_driver::RawImuParser::MessageType>& rawimu_messages);
       /**
        * @brief Provides any TIME messages that have been received since the
        * last time this was called.
@@ -502,6 +509,7 @@ namespace novatel_gps_driver
       InsstdevParser insstdev_parser_;
       Psrdop2Parser psrdop2_parser_;
       RangeParser range_parser_;
+      RawImuParser rawimu_parser_;
       TimeParser time_parser_;
       TrackstatParser trackstat_parser_;
 
@@ -528,6 +536,7 @@ namespace novatel_gps_driver
       boost::circular_buffer<novatel_gps_driver::DualAntennaHeadingParser::MessageType> dual_antenna_heading_msgs_;
       boost::circular_buffer<novatel_gps_driver::Psrdop2Parser::MessageType> psrdop2_msgs_;
       boost::circular_buffer<novatel_gps_driver::RangeParser::MessageType> range_msgs_;
+      boost::circular_buffer<novatel_gps_driver::RawImuParser::MessageType> rawimu_msgs_;
       boost::circular_buffer<novatel_gps_driver::TimeParser::MessageType> time_msgs_;
       boost::circular_buffer<novatel_gps_driver::TrackstatParser::MessageType> trackstat_msgs_;
 

@@ -58,6 +58,7 @@ add_library(${PROJECT_NAME}
   src/parsers/parsing_utils.cpp
   src/parsers/psrdop2.cpp
   src/parsers/range.cpp
+  src/parsers/rawimu.cpp
   src/parsers/time.cpp
   src/parsers/trackstat.cpp
 )

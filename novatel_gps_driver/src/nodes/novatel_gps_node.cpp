@@ -233,7 +233,7 @@ namespace novatel_gps_driver
 
     if (publish_rawimu_messages_)
     {
-      rawimu_pub_ = swri::advertise<novatel_gps_msgs::msg::RawImu>(*this, "raw_imu", 100);
+      rawimu_pub_ = swri::advertise<novatel_gps_msgs::msg::NovatelRawImu>(*this, "raw_imu", 100);
     }
 
     if (publish_time_messages_)

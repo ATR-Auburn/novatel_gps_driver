@@ -239,7 +239,7 @@ namespace novatel_gps_driver
     rclcpp::Publisher<novatel_gps_msgs::msg::Gphdt>::SharedPtr gphdt_pub_;
     rclcpp::Publisher<novatel_gps_msgs::msg::Gprmc>::SharedPtr gprmc_pub_;
     rclcpp::Publisher<novatel_gps_msgs::msg::Range>::SharedPtr range_pub_;
-    rclcpp::Publisher<novatel_gps_msgs::msg::RawImu>::SharedPtr rawimu_pub_;
+    rclcpp::Publisher<novatel_gps_msgs::msg::NovatelRawImu>::SharedPtr rawimu_pub_;
     rclcpp::Publisher<novatel_gps_msgs::msg::Time>::SharedPtr time_pub_;
     rclcpp::Publisher<novatel_gps_msgs::msg::Trackstat>::SharedPtr trackstat_pub_;
 
