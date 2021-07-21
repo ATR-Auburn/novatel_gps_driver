@@ -378,6 +378,10 @@ namespace novatel_gps_driver
     {
       opts["range" + format_suffix] = 1.0;  // Range. 1 msg/sec is max rate
     }
+    if (publish_rawimu_messages_)
+    {
+      opts["rawimu" + format_suffix] = 0.008; // 125 hz
+    }
     if (publish_trackstat_)
     {
       opts["trackstat" + format_suffix] = 1.0;  // Trackstat
