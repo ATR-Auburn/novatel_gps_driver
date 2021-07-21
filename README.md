@@ -32,7 +32,7 @@ The driver should function on ROS 2 Dashing and has also been used on ROS 2 Foxy
 ```bash
 mkdir -p novatel/src
 cd novatel/src
-git clone https://github.com/ATR-Auburn/novatel_gps_driver
+git clone https://gitlab.com/au/novatel_gps_driver
 rosdep install . --from-paths -i
 cd ../..
 colcon build
